@@ -1,0 +1,16 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: example-hpa-external-metrics
+spec:
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: External
+    external:
+      metricName: custom.googleapis.com|nginx-ingress-internal-controller|nginx_connections_total
+      targetValue: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: example-nodejs-app
