@@ -67,17 +67,15 @@ if output="$(git status --porcelain)" && [ -z "$output" ]; then
   echo "Git working directory is clean."
   # Working directory clean
 
+  echo "Building docker image"
 
-        echo "Building docker image"
+  DIRECTORY="."
 
-        DIRECTORY="."
+  docker build --build-arg GIT_REVISION -t ${REPOSITORY} -t "${REPOSITORY}:${GIT_REVISION}" "${DIRECTORY}"
 
-        docker build --build-arg GIT_REVISION -t ${REPOSITORY} -t "${REPOSITORY}:${GIT_REVISION}" "${DIRECTORY}"
+  echo pushing
+  docker push "${REPOSITORY}"
 
-        echo pushing
-        docker push "${REPOSITORY}"
-
-    fi
 else
   echo "There are Uncommitted changes. Please commit and try again"
   exit 1
