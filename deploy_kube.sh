@@ -62,6 +62,7 @@ REPOSITORY_NAMESPACE=${1:-stevenacoffman}
 # default REGISTRY is "hub.docker.com", so if you use something else, uncomment:
 # REGISTRY="example.com"
 # REPOSITORY="${REGISTRY}/${REPOSITORY_NAMESPACE}/${IMAGE_NAME}"
+REPOSITORY="${REPOSITORY_NAMESPACE}/${IMAGE_NAME}"
 
 if output="$(git status --porcelain)" && [ -z "$output" ]; then
   echo "Git working directory is clean."
