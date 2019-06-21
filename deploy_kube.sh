@@ -75,7 +75,6 @@ if output="$(git status --porcelain)" && [ -z "$output" ]; then
 
   echo pushing
   docker push "${REPOSITORY}"
-
 else
   echo "There are Uncommitted changes. Please commit and try again"
   exit 1
