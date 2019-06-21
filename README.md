@@ -44,6 +44,7 @@ FROM nginx:1.15.8-alpine as production
 
 $ docker build -t development --target development .
 $ docker run development
+...
 $ export GIT_REVISION=$(git rev-parse HEAD)
 $ docker build --build-arg GIT_REVISION -t "${REPOSITORY}:${GIT_REVISION}" .
 ```
@@ -53,12 +54,11 @@ Some other nginx configs to look at:
 + https://gist.github.com/huangzhuolin/24f73163e3670b1cd327f2b357fd456a
 + https://gist.github.com/thoop/8165802
 
-# svelte-todomvc
+## svelte-todomvc
 
 **[svelte-todomvc.surge.sh](http://svelte-todomvc.surge.sh/)**
 
 [TodoMVC](http://todomvc.com/) implemented in [Svelte](https://github.com/sveltejs/svelte). The entire app weighs 3.5kb zipped.
-
 
 ## Where did this content actually come from (useful links):
 - https://github.com/SaraVieira/rick-morty-random-episode

@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: svelte-nginx
+  namespace: default
+  labels:
+    app: svelte-nginx
+    git: "36fefa68238120aeb282c8e2ec6e8374fc5ac021"
+spec:
+  replicas: 3 # tells deployment to run 3 pods
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels: # tell deployment which pod to update, should match pod template labels
+      app: svelte-nginx
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: svelte-nginx
+        git: "36fefa68238120aeb282c8e2ec6e8374fc5ac021"
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: svelte-nginx
+        image: stevenacoffman/svelte-nginx:36fefa68238120aeb282c8e2ec6e8374fc5ac021
+#        tty: true
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+        - name: THIS_INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: THIS_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: PROMETHEUS_PORT
+          value: "9113"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        resources:
+          requests:
+            cpu: 100m
+            memory: 300Mi
+          limits:
+            # This limit was intentionally set low as a reminder that
+            # it is meant to be tweaked
+            # before you run production workloads
+            memory: 600Mi
+      - name: metrics
+        image: nginx/nginx-prometheus-exporter:0.4.0
+        imagePullPolicy: IfNotPresent
+        command: [ '/usr/bin/exporter']
+        env:
+        - name: SCRAPE_URI
+          value: 'http://127.0.0.1:8080/nginx_status/'
+        - name: NGINX_RETRIES
+          value: '10'
+        - name: TELEMETRY_PATH
+          value: '/metrics'
+        ports:
+        - name: metrics
+          containerPort: 9113
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+          initialDelaySeconds: 5
+          timeoutSeconds: 1

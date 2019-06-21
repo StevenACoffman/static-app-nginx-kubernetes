@@ -76,12 +76,14 @@ if output="$(git status --porcelain)" && [ -z "$output" ]; then
 
   echo pushing
   docker push "${REPOSITORY}"
+  echo "Done pushing"
+
 else
   echo "There are Uncommitted changes. Please commit and try again"
   exit 1
 fi
-
-KUBERNETES_NAMESPACE=${2:-default}
+echo done building
+KUBERNETES_NAMESPACE="${2:-default}"
 echo "Deploying to kubernetes namespace ${KUBERNETES_NAMESPACE} using image ${REPOSITORY}:${GIT_REVISION}"
 
 mkdir -p ./k8s
