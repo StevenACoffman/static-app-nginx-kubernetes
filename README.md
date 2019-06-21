@@ -54,6 +54,11 @@ Some other nginx configs to look at:
 + https://gist.github.com/huangzhuolin/24f73163e3670b1cd327f2b357fd456a
 + https://gist.github.com/thoop/8165802
 
+### Prometheus Metrics and Horizontal Pod Autoscaling
+Autoscaling deployments in Kubernetes is more exciting since HorizontalPodAutoscaler can scale on custom and external metrics instead of simply CPU and memory like before. Requests per second is really a better metric for scaling certain applications.
+
+This setup has metrics available on `/metrics`
+
 ## svelte-todomvc
 
 **[svelte-todomvc.surge.sh](http://svelte-todomvc.surge.sh/)**
@@ -68,4 +73,7 @@ Some other nginx configs to look at:
 - https://blog.codeship.com/continuously-deploying-single-page-apps/
 - [History api](https://developer.mozilla.org/en-US/docs/Web/API/History_API)
 - [Deploy create-react-app with react-router to NGINX](https://gist.github.com/huangzhuolin/24f73163e3670b1cd327f2b357fd456a)
+- [Monitoring nginx with Prometheus and Grafana](https://g00glen00b.be/monitoring-nginx-with-prometheus-and-grafana/)
+- [Horizontal Pod Autoscale with Custom Prometheus Metrics](https://itnext.io/horizontal-pod-autoscale-with-custom-metrics-8cb13e9d475)
+- [Kubernetes HPA Autoscaling with Custom and External Metrics](https://medium.com/uptime-99/kubernetes-hpa-autoscaling-with-custom-and-external-metrics-da7f41ff7846)
 - Rex Roof at Blue Newt made the snazzy multistage docker image
