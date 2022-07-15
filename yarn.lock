@@ -2016,9 +2016,9 @@ surge@^0.21.3:
     tarr "1.1.0"
     url-parse-as-address "1.0.0"
 
-svelte@^3.0.0:
-  version "3.6.9"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.6.9.tgz#949f4674329d04d3281f7cf340285ae3480f28da"
+svelte@^3.49.0:
+  version "3.49.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.49.0.tgz#5baee3c672306de1070c3b7888fc2204e36a4029"
 
 tar@^4:
   version "4.4.19"
